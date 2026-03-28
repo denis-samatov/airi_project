@@ -4,7 +4,7 @@ import glob
 import logging
 import shutil
 import re as _re
-from flask import Flask, render_template, render_template_string, jsonify
+from flask import Flask, render_template, jsonify
 
 
 logger = logging.getLogger("openevolve.visualizer")
