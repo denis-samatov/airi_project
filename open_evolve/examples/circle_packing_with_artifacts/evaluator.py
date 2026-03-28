@@ -12,7 +12,7 @@ import subprocess
 import tempfile
 import traceback
 import sys
-import pickle
+import json
 
 # Import EvaluationResult for artifacts support
 from openevolve.evaluation_result import EvaluationResult
@@ -98,7 +98,7 @@ def run_with_timeout(program_path, timeout_seconds=20):
 import sys
 import numpy as np
 import os
-import pickle
+import json
 import traceback
 
 # Add the directory to sys.path
@@ -121,21 +121,21 @@ try:
 
     # Save results to a file
     results = {{
-        'centers': centers,
-        'radii': radii,
-        'sum_radii': sum_radii
+        'centers': centers.tolist() if hasattr(centers, 'tolist') else centers,
+        'radii': radii.tolist() if hasattr(radii, 'tolist') else radii,
+        'sum_radii': float(sum_radii) if hasattr(sum_radii, 'item') else sum_radii
     }}
 
-    with open('{temp_file.name}.results', 'wb') as f:
-        pickle.dump(results, f)
+    with open('{temp_file.name}.results', 'w') as f:
+        json.dump(results, f)
     print(f"Results saved to {temp_file.name}.results")
     
 except Exception as e:
     # If an error occurs, save the error instead
     print(f"Error in subprocess: {{str(e)}}")
     traceback.print_exc()
-    with open('{temp_file.name}.results', 'wb') as f:
-        pickle.dump({{'error': str(e)}}, f)
+    with open('{temp_file.name}.results', 'w') as f:
+        json.dump({{'error': str(e)}}, f)
     print(f"Error saved to {temp_file.name}.results")
 """
         temp_file.write(script.encode())
@@ -164,8 +164,8 @@ except Exception as e:
 
             # Load the results
             if os.path.exists(results_path):
-                with open(results_path, "rb") as f:
-                    results = pickle.load(f)
+                with open(results_path, "r") as f:
+                    results = json.load(f)
 
                 # Check if an error was returned
                 if "error" in results:
