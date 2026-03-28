@@ -859,6 +859,7 @@ class ProgramDatabase:
             List of inspiration programs
         """
         inspirations = []
+        inspiration_ids = set()
 
         # Always include the absolute best program if available and different from parent
         if (
@@ -868,6 +869,7 @@ class ProgramDatabase:
         ):
             best_program = self.programs[self.best_program_id]
             inspirations.append(best_program)
+            inspiration_ids.add(best_program.id)
             logger.debug(f"Including best program {self.best_program_id} in inspirations")
         elif self.best_program_id is not None and self.best_program_id not in self.programs:
             # Clean up stale best program reference
@@ -880,8 +882,9 @@ class ProgramDatabase:
         top_n = max(1, int(n * self.config.elite_selection_ratio))
         top_programs = self.get_top_programs(n=top_n)
         for program in top_programs:
-            if program.id not in [p.id for p in inspirations] and program.id != parent.id:
+            if program.id not in inspiration_ids and program.id != parent.id:
                 inspirations.append(program)
+                inspiration_ids.add(program.id)
 
         # Add diverse programs using config.num_diverse_programs
         if len(self.programs) > n and len(inspirations) < n:
@@ -907,10 +910,11 @@ class ProgramDatabase:
                     # Check if program still exists before adding
                     if (
                         program_id != parent.id
-                        and program_id not in [p.id for p in inspirations]
+                        and program_id not in inspiration_ids
                         and program_id in self.programs
                     ):
                         nearby_programs.append(self.programs[program_id])
+                        inspiration_ids.add(program_id)
                     elif program_id not in self.programs:
                         # Clean up stale reference in feature_map
                         logger.debug(f"Removing stale program {program_id} from feature_map")
