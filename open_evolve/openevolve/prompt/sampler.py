@@ -308,8 +308,9 @@ class PromptSampler:
         for i, program in enumerate(selected_top):
             # Extract a snippet (first 10 lines) for display
             program_code = program.get("code", "")
-            program_snippet = "\n".join(program_code.split("\n")[:10])
-            if len(program_code.split("\n")) > 10:
+            code_lines = program_code.split("\n")
+            program_snippet = "\n".join(code_lines[:10])
+            if len(code_lines) > 10:
                 program_snippet += "\n# ... (truncated for brevity)"
 
             # Calculate a composite score using safe numeric average
@@ -361,8 +362,9 @@ class PromptSampler:
                 for i, program in enumerate(diverse_programs):
                     # Extract a snippet (first 5 lines for diversity)
                     program_code = program.get("code", "")
-                    program_snippet = "\n".join(program_code.split("\n")[:5])
-                    if len(program_code.split("\n")) > 5:
+                    code_lines = program_code.split("\n")
+                    program_snippet = "\n".join(code_lines[:5])
+                    if len(code_lines) > 5:
                         program_snippet += "\n# ... (truncated)"
 
                     # Calculate a composite score using safe numeric average
@@ -429,8 +431,9 @@ class PromptSampler:
         for i, program in enumerate(inspirations):
             # Extract a snippet (first 8 lines) for display
             program_code = program.get("code", "")
-            program_snippet = "\n".join(program_code.split("\n")[:8])
-            if len(program_code.split("\n")) > 8:
+            code_lines = program_code.split("\n")
+            program_snippet = "\n".join(code_lines[:8])
+            if len(code_lines) > 8:
                 program_snippet += "\n# ... (truncated for brevity)"
             
             # Calculate a composite score using safe numeric average
@@ -527,9 +530,10 @@ class PromptSampler:
                 features.append("NumPy-based implementation")
             if "for" in code_lower and "while" in code_lower:
                 features.append("Mixed iteration strategies")
-            if len(code.split("\n")) < 10:
+            code_lines = code.split("\n")
+            if len(code_lines) < 10:
                 features.append("Concise implementation")
-            elif len(code.split("\n")) > 50:
+            elif len(code_lines) > 50:
                 features.append("Comprehensive implementation")
         
         # Default if no specific features found
