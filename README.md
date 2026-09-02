@@ -28,7 +28,7 @@
 - Web-интерфейс для мониторинга эволюционного процесса
 - Поддержка множественных LLM провайдеров
 
-#### [`OpenAlpha_Evolve`](open_alpha_envolve/) ([репозиторий](https://github.com/shyamsaktawat/OpenAlpha_Evolve))
+#### [`OpenAlpha_Evolve`](open_alpha_evolve/) ([репозиторий](https://github.com/shyamsaktawat/OpenAlpha_Evolve))
 
 > Содержит описание и результаты бенчмаркинга, не был выбран для дальнейший улучший из-за своих ограничений
 
