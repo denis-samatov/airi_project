@@ -26,12 +26,8 @@ This evaluator provides MAXIMUM protection against Metal kernel failures during 
 
 import os
 import sys
-import json
 import time
 import traceback
-import threading
-import subprocess
-import tempfile
 from typing import Dict, List, Tuple, Any, Optional
 import numpy as np
 
