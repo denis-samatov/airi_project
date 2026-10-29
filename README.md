@@ -1,3 +1,5 @@
+> Predecessor of [applied-alpha-evolve](https://github.com/denis-samatov/applied-alpha-evolve). Shared code/results are one project lineage, not an independent second benchmark. Current development belongs there.
+
 # Applied AlphaEvolve 🧬
 
 *Проект направления Next-Gen LLMs в рамках Летней школы AIRI 2025*
@@ -82,7 +84,7 @@ LLM API доступ
 # Клонирование репозитория
 
 # Настройка OpenEvolve  
-cd airi_project/openevolve
+cd airi_project/open_evolve
 pip install -e .
 
 # Настроить конфигурацию в 
@@ -90,5 +92,10 @@ pip install -e .
 # examples/circle_packing/config_phase_2.yaml
 
 # Запуск примера
-python examples/circle_packing/run_evolution.py
+python openevolve-run.py examples/circle_packing/initial_program.py examples/circle_packing/evaluator.py --config examples/circle_packing/config_phase_1.yaml --iterations 1
 ```
+## Validation and execution boundary
+
+Local code corrections do not reproduce historical model/framework superiority. Config loading, synthetic geometry and trusted-local runner tests are offline. Circle candidates use bounded numeric JSON IPC, sanitized provider environment, scratch working directory and POSIX process-group cleanup. These controls are not a hostile-code sandbox: a process can still access host files/network. Execute only reviewed, trusted local candidates here. Untrusted/generated external workloads require a separately validated sandbox with no host secrets/mounts, denied egress, CPU/memory limits and independent evaluator isolation. Generic evaluator thread timeouts limit awaiting, not underlying worker computation.
+
+No new LLM calls or scientific results were produced. Historical private MetaEvolve throughput/production-ready descriptions are unverified author claims, not measurements independently reproduced from this public source. A valid comparison needs complete run-level data, seeds, equal token/time/evaluation budgets, all failed runs and independent feasibility replay. MetaEvolve implementation/raw experiment records are external prerequisites. Existing nested upstream workflows are not root GitHub Actions; local regression tests do not imply hosted CI ran.

@@ -1,3 +1,5 @@
+> Evidence qualifier: this document describes a private historical implementation. Throughput, memory and “Production Ready” phrases below are original author-reported claims, not independently reproduced acceptance results. The public archive contains summaries, not the private source/raw benchmark protocol.
+
 # Технический анализ MetaEvolve 🧬
 
 ## Обзор
