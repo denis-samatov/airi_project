@@ -18,6 +18,8 @@ class LLMModelConfig:
 
     # Weight for model in ensemble
     weight: float = 1.0
+    api_base: Optional[str] = None
+    api_key: Optional[str] = field(default=None, repr=False)
 
     # Generation parameters
     system_message: Optional[str] = None
@@ -60,12 +62,12 @@ class LLMConfig(LLMModelConfig):
     primary_model: str = None
     primary_model_weight: float = None
     primary_model_api_base: str = None
-    primary_model_api_key: float = None
+    primary_model_api_key: Optional[str] = field(default=None, repr=False)
 
     secondary_model: str = None
     secondary_model_weight: float = None
     secondary_model_api_base: str = None
-    secondary_model_api_key: float = None
+    secondary_model_api_key: Optional[str] = field(default=None, repr=False)
 
     def __post_init__(self):
         """Post-initialization to set up model configurations"""
@@ -101,6 +103,8 @@ class LLMConfig(LLMModelConfig):
 
         # Update models with shared configuration values
         shared_config = {
+            "api_base": self.api_base,
+            "api_key": self.api_key,
             "temperature": self.temperature,
             "top_p": self.top_p,
             "max_tokens": self.max_tokens,
